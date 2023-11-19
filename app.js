@@ -472,7 +472,7 @@ async function connectWallet() {
 
     if (connectButton && walletStatus) {
       connectButton.textContent = 'Connected';
-      connectButton.disabled = false; // Optionally disable the button
+      connectButton.disabled = true; // Optionally disable the button
       walletStatus.textContent = 'Connected'; // Update status text
     }
   } catch (error) {
@@ -491,34 +491,42 @@ window.onload = async () => {
   } else {
     console.error('MetaMask or a compatible wallet is not detected');
   }
-};
+}
 
 // Function to create a deal
-async function createDeal() {
+async function createDeal(contractorWallet) {
   try {
-    // Get values from the form or wherever you have them
-    const clientWallet = document.getElementById('clientWallet').value;
-    const contractorWallet = document.getElementById('contractorWallet').value;
-
     // Validate the Ethereum addresses (you might want to add more validation)
-    if (!ethers.utils.isAddress(clientWallet) || !ethers.utils.isAddress(contractorWallet)) {
+    if (!ethers.utils.isAddress(contractorWallet)) {
       console.error('Invalid Ethereum address provided.');
       return;
     }
 
-    // Add your logic for creating a deal here
-
+    // Create a deal by calling the smart contract function
+    const transaction = await escrowContract.createDeal(contractorWallet);
+    await transaction.wait();
+    console.log('Deal created successfully');
   } catch (error) {
     console.error('Error creating deal:', error.message);
   }
 }
 
-// Event listener for Create Deal button
-document.getElementById('createDealButton').addEventListener('click', createDeal);
+// Function to deposit funds to a deal
+async function depositFunds(dealAddress, amount) {
+  try {
+    // Deposit funds by calling the smart contract function
+    const transaction = await escrowContract.depositFunds(dealAddress, { value: ethers.utils.parseEther(amount.toString()) });
+    await transaction.wait();
+    console.log('Funds deposited successfully');
+  } catch (error) {
+    console.error('Error depositing funds:', error.message);
+  }
+}
 
 // Function to add funds to a deal
 async function addFunds(dealAddress, amount) {
   try {
+    // Add funds by calling the smart contract function
     const transaction = await escrowContract.addFunds(dealAddress, { value: ethers.utils.parseEther(amount.toString()) });
     await transaction.wait();
     console.log('Funds added successfully');
@@ -530,6 +538,7 @@ async function addFunds(dealAddress, amount) {
 // Function to sign a deal
 async function signDeal(dealAddress) {
   try {
+    // Sign the deal by calling the smart contract function
     const transaction = await escrowContract.signDeal(dealAddress);
     await transaction.wait();
     console.log('Deal signed successfully');
@@ -541,6 +550,7 @@ async function signDeal(dealAddress) {
 // Function to release funds from a deal
 async function releaseFunds(dealAddress) {
   try {
+    // Release funds by calling the smart contract function
     const transaction = await escrowContract.releaseFunds(dealAddress);
     await transaction.wait();
     console.log('Funds released successfully');
@@ -552,6 +562,7 @@ async function releaseFunds(dealAddress) {
 // Function to cancel a deal
 async function cancelDeal(dealAddress) {
   try {
+    // Cancel the deal by calling the smart contract function
     const transaction = await escrowContract.cancelDeal(dealAddress);
     await transaction.wait();
     console.log('Deal canceled successfully');
@@ -563,6 +574,7 @@ async function cancelDeal(dealAddress) {
 // Function to request dispute for a deal
 async function requestDispute(dealAddress) {
   try {
+    // Request dispute by calling the smart contract function
     const transaction = await escrowContract.requestDispute(dealAddress);
     await transaction.wait();
     console.log('Dispute requested successfully');
@@ -571,9 +583,10 @@ async function requestDispute(dealAddress) {
   }
 }
 
-// Function to resolve dispute for a deal
+// Function to resolve a dispute for a deal
 async function resolveDispute(dealAddress, resolved) {
   try {
+    // Resolve dispute by calling the smart contract function
     const transaction = await escrowContract.resolveDispute(dealAddress, resolved);
     await transaction.wait();
     console.log('Dispute resolved successfully');
@@ -582,18 +595,26 @@ async function resolveDispute(dealAddress, resolved) {
   }
 }
 
+// ... (Any other functions you may need)
+
 // Event listener for Create Deal button
-document.getElementById('createDealButton').addEventListener('click', createDeal);
+document.getElementById('createDealButton').addEventListener('click', () => {
+  const contractorWallet = prompt('Enter the contractor\'s wallet address:');
+  createDeal(contractorWallet);
+});
 
 // Replace 'YOUR_DEAL_ADDRESS' with the actual deal address
 const dealAddress = 'YOUR_DEAL_ADDRESS';
 
 // Examples of function calls
-createDeal(); // Replace 'ContractorAddress' with the actual contractor address
+createDeal('ContractorAddress'); // Replace 'ContractorAddress' with the actual contractor address
 depositFunds(dealAddress, 1); // Deposit 1 ether to the deal
 addFunds(dealAddress, 0.5); // Add 0.5 ether to the deal
 signDeal(dealAddress); // Sign the deal
 releaseFunds(dealAddress); // Release funds
+cancelDeal(dealAddress); // Cancel the deal
+requestDispute(dealAddress); // Request dispute
+resolveDispute(dealAddress, true); // Resolve dispute (true for resolved, false for not resolved)
 cancelDeal(dealAddress); // Cancel the deal
 requestDispute(dealAddress); // Request dispute
 resolveDispute(dealAddress, true); // Resolve dispute (true for resolved, false for not resolved)
