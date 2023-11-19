@@ -461,22 +461,15 @@ const escrowContract = new ethers.Contract(contractAddress, contractABI, signer)
 
 // Function to connect the wallet
 async function connectWallet() {
-  try {
-    // Prompt user to connect their wallet
-    await window.ethereum.enable();
-    console.log('Wallet connected successfully');
-
-    // Update UI to show connected status
-    const connectButton = document.getElementById('connectWalletButton');
-    const walletStatus = document.getElementById('walletStatus');
-
-    if (connectButton && walletStatus) {
-      connectButton.textContent = 'Connected';
-      connectButton.disabled = true; // Optionally disable the button
-      walletStatus.textContent = 'Connected'; // Update status text
+  if (window.ethereum) {
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('Wallet connected successfully');
+    } catch (error) {
+      console.error('Error connecting wallet:', error.message);
     }
-  } catch (error) {
-    console.error('Error connecting wallet:', error.message);
+  } else {
+    console.error('MetaMask not detected');
   }
 }
 
@@ -484,112 +477,86 @@ async function connectWallet() {
 document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
 
 // Call the connectWallet function when the page loads
-window.onload = async () => {
-  // Check if the user has MetaMask or a compatible wallet installed
-  if (window.ethereum) {
-    await connectWallet();
-  } else {
-    console.error('MetaMask or a compatible wallet is not detected');
-  }
-}
+window.onload = function () {
+  connectWallet();
+};
 
 // Function to create a deal
-async function createDeal(contractorWallet) {
-  try {
-    // Validate the Ethereum addresses (you might want to add more validation)
-    if (!ethers.utils.isAddress(contractorWallet)) {
-      console.error('Invalid Ethereum address provided.');
-      return;
-    }
+async function createDeal() {
+  const clientWallet = document.getElementById('clientWallet').value;
+  const contractorWallet = document.getElementById('contractorWallet').value;
 
-    // Create a deal by calling the smart contract function
-    const transaction = await escrowContract.createDeal(contractorWallet);
-    await transaction.wait();
-    console.log('Deal created successfully');
+  if (!ethers.utils.isAddress(clientWallet) || !ethers.utils.isAddress(contractorWallet)) {
+    console.error('Invalid Ethereum address provided.');
+    return;
+  }
+
+  try {
+    await escrowContract.createDeal(contractorWallet);
+    console.log('Deal created successfully!');
   } catch (error) {
     console.error('Error creating deal:', error.message);
   }
 }
 
-// Function to deposit funds to a deal
-async function depositFunds(dealAddress, amount) {
+async function depositFunds(dealAddress) {
   try {
-    // Deposit funds by calling the smart contract function
-    const transaction = await escrowContract.depositFunds(dealAddress, { value: ethers.utils.parseEther(amount.toString()) });
-    await transaction.wait();
-    console.log('Funds deposited successfully');
+    await escrowContract.depositFunds(dealAddress, { value: ethers.utils.parseEther('1') });
+    console.log('Funds deposited successfully!');
   } catch (error) {
     console.error('Error depositing funds:', error.message);
   }
 }
 
-// Function to add funds to a deal
-async function addFunds(dealAddress, amount) {
+async function addFunds(dealAddress) {
   try {
-    // Add funds by calling the smart contract function
-    const transaction = await escrowContract.addFunds(dealAddress, { value: ethers.utils.parseEther(amount.toString()) });
-    await transaction.wait();
-    console.log('Funds added successfully');
+    await escrowContract.addFunds(dealAddress, { value: ethers.utils.parseEther('1') });
+    console.log('Funds added successfully!');
   } catch (error) {
     console.error('Error adding funds:', error.message);
   }
 }
 
-// Function to sign a deal
 async function signDeal(dealAddress) {
   try {
-    // Sign the deal by calling the smart contract function
-    const transaction = await escrowContract.signDeal(dealAddress);
-    await transaction.wait();
-    console.log('Deal signed successfully');
+    await escrowContract.signDeal(dealAddress);
+    console.log('Deal signed successfully!');
   } catch (error) {
     console.error('Error signing deal:', error.message);
   }
 }
 
-// Function to release funds from a deal
 async function releaseFunds(dealAddress) {
   try {
-    // Release funds by calling the smart contract function
-    const transaction = await escrowContract.releaseFunds(dealAddress);
-    await transaction.wait();
-    console.log('Funds released successfully');
+    await escrowContract.releaseFunds(dealAddress);
+    console.log('Funds released successfully!');
   } catch (error) {
     console.error('Error releasing funds:', error.message);
   }
 }
 
-// Function to cancel a deal
 async function cancelDeal(dealAddress) {
   try {
-    // Cancel the deal by calling the smart contract function
-    const transaction = await escrowContract.cancelDeal(dealAddress);
-    await transaction.wait();
-    console.log('Deal canceled successfully');
+    await escrowContract.cancelDeal(dealAddress);
+    console.log('Deal canceled successfully!');
   } catch (error) {
     console.error('Error canceling deal:', error.message);
   }
 }
 
-// Function to request dispute for a deal
 async function requestDispute(dealAddress) {
   try {
-    // Request dispute by calling the smart contract function
-    const transaction = await escrowContract.requestDispute(dealAddress);
-    await transaction.wait();
-    console.log('Dispute requested successfully');
+    await escrowContract.requestDispute(dealAddress);
+    console.log('Dispute requested successfully!');
   } catch (error) {
     console.error('Error requesting dispute:', error.message);
   }
 }
 
-// Function to resolve a dispute for a deal
 async function resolveDispute(dealAddress, resolved) {
   try {
-    // Resolve dispute by calling the smart contract function
-    const transaction = await escrowContract.resolveDispute(dealAddress, resolved);
-    await transaction.wait();
-    console.log('Dispute resolved successfully');
+    await escrowContract.resolveDispute(dealAddress, resolved);
+    console.log('Dispute resolved successfully!');
   } catch (error) {
     console.error('Error resolving dispute:', error.message);
   }
