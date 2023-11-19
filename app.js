@@ -491,16 +491,20 @@ window.onload = async () => {
 }
 
 // Function to create a deal
-async function createDeal(contractorAddress) {
+async function createDeal() {
   try {
-    const transaction = await escrowContract.createDeal(contractorAddress);
-    await transaction.wait();
-    console.log('Deal created successfully');
-  } catch (error) {
-    console.error('Error creating deal:', error.message);
-  }
-}
+    // Get values from the form or wherever you have them
+    const clientWallet = document.getElementById('clientWallet').value;
+    const contractorWallet = document.getElementById('contractorWallet').value;
 
+    // Validate the Ethereum addresses (you might want to add more validation)
+    if (!ethers.utils.isAddress(clientWallet) || !ethers.utils.isAddress(contractorWallet)) {
+      console.error('Invalid Ethereum address provided.');
+      return;
+    }
+  }
+}	
+	  
 async function addFunds(dealAddress, amount) {
   try {
     const transaction = await escrowContract.addFunds(dealAddress, { value: ethers.utils.parseEther(amount.toString()) });
