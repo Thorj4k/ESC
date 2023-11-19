@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrokPay DApp</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Additional CSS for banner sizes and background texture -->
+  <style>
+    .advertising-banner-top,
+    .advertising-banner-bottom {
+      padding: 40px;
+      font-size: 18px; /* Double the font size */
+      background-color: #f8f9fa;
+      color: #343a40;
+      border-radius: 10px; /* Rounded corners */
+    }
+
+    body {
+      /* Set background texture */
+      background-image: url('https://raw.githubusercontent.com/Thorj4k/EscrowSC/main/4232288.jpg');
+      background-repeat: repeat; /* Repeat the texture */
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Additional Styles for Larger Screens */
+    @media (min-width: 768px) {
+      body {
+        padding: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Advertising Banners at the Top -->
+    <div id="advertisingBannerTop" class="advertising-banner-top mb-4">
+      <strong>Ad Space Available - Contact Us for Advertising Opportunities!</strong>
+    </div>
+
+    <header class="text-center mb-4">
+      <h1>GrokPay</h1>
+      <h4>Built To Secure Your Transaction</h4>
+    </header>
+    
+    <!-- Connect Wallet Section -->
+    <div class="mb-4">
+      <button id="connectButton" class="btn btn-primary">Connect Wallet</button>
+    </div>
+    
+    <!-- Create Deal Section -->
+    <div class="card p-4 mb-4">
+      <h2>Create a Deal</h2>
+      <form id="createDealForm">
+        <div class="form-group row">
+          <label for="clientWallet" class="col-sm-3 col-form-label">Client Wallet:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="clientWallet" placeholder="Enter Client Wallet">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="contractorWallet" class="col-sm-3 col-form-label">Contractor Wallet:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="contractorWallet" placeholder="Enter Contractor Wallet">
+          </div>
+        </div>
+        <button type="button" id="createDealButton" class="btn btn-success">Create Deal</button>
+      </form>
+    </div>
+
+    <!-- Retrieve Deal Section -->
+    <div class="card p-4 mb-4">
+      <h2>Retrieve an Existing Deal</h2>
+      <form id="retrieveDealForm">
+        <div class="form-group">
+          <label for="dealId">Deal ID:</label>
+          <input type="text" class="form-control" id="dealId" placeholder="Enter Deal ID">
+        </div>
+        <button type="button" id="retrieveDealButton" class="btn btn-primary">Retrieve Deal</button>
+      </form>
+    </div>
+    
+    <!-- Deal Information Section (Initially hidden) -->
+    <div class="card p-4 mb-4" id="dealDetailsSection" style="display: none;">
+      <h2>Deal Information</h2>
+      <form id="dealDetailsForm">
+        <!-- Deal details will be displayed here -->
+        <div class="form-group">
+          <label for="dealAmount">Amount Deposited:</label>
+          <input type="text" class="form-control" id="dealAmount" readonly>
+        </div>
+        <div class="form-group">
+          <label for="dealCreatedDate">Deal Created Date:</label>
+          <input type="text" class="form-control" id="dealCreatedDate" readonly>
+        </div>
+        <div class="form-group">
+          <label for="dealCompletedDate">Deal Completed Date:</label>
+          <input type="text" class="form-control" id="dealCompletedDate" readonly>
+        </div>
+        <div class="form-group">
+          <label for="dealCancelledDate">Deal Cancelled Date:</label>
+          <input type="text" class="form-control" id="dealCancelledDate" readonly>
+        </div>
+        <div class="form-group">
+          <label for="dealStatus">Deal Status:</label>
+          <input type="text" class="form-control" id="dealStatus" readonly>
+        </div>
+        <div class="form-group">
+          <label for="dealSignedDate">Deal Signed Date:</label>
+          <input type="text" class="form-control" id="dealSignedDate" readonly>
+        </div>
+      </form>
+    </div>
+
+    <!-- Main Page Statistics Section -->
+    <div class="card p-4 mb-4">
+      <h2>Main Page Statistics</h2>
+      <!-- Display overall deals, fundings, and users statistics -->
+    </div>
+
+    <!-- Advertising Banners at the Bottom -->
+    <div id="advertisingBannerBottom" class="advertising-banner-bottom p-2">
+      <marquee behavior="scroll" direction="left">
+        <strong>Ad Space Available - Grab Your Spot Now!</strong>
+      </marquee>
+    </div>
+  </div>
+  <!-- Bootstrap JS (popper.js and jQuery required) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- ethers.js library -->
+  <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
