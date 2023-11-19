@@ -567,6 +567,9 @@ async function resolveDispute(dealAddress, resolved) {
   }
 }
 
+// Event listener for Create Deal button
+document.getElementById('createDealButton').addEventListener('click', createDeal);
+	
 // Replace 'YOUR_DEAL_ADDRESS' with the actual deal address
 const dealAddress = 'YOUR_DEAL_ADDRESS';
 
