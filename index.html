@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +14,19 @@
     .advertising-banner-top,
     .advertising-banner-bottom {
       padding: 40px;
-      font-size: 18px; /* Double the font size */
+      font-size: 18px;
+      /* Double the font size */
       background-color: #f8f9fa;
       color: #343a40;
-      border-radius: 10px; /* Rounded corners */
+      border-radius: 10px;
+      /* Rounded corners */
     }
 
     body {
       /* Set background texture */
       background-image: url('https://raw.githubusercontent.com/Thorj4k/ESC/main/4232288.jpg');
-      background-repeat: repeat; /* Repeat the texture */
+      background-repeat: repeat;
+      /* Repeat the texture */
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
@@ -36,6 +40,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container mt-5">
     <!-- Advertising Banners at the Top -->
@@ -49,23 +54,22 @@
       <h1>GrokPay</h1>
       <h4>Built To Secure Your Transaction</h4>
     </header>
-    
-    <!-- Connect Wallet Section -->
-    <div class="mb-4">
-      <button id="connectWalletButton" class="btn btn-primary">Connect Wallet</button>
-      <span id="walletStatus" style="margin-left: 10px;"></span>
+
+    <!-- Connect Wallet and Create Contract Buttons -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+      <div>
+        <button id="connectWalletButton" class="btn btn-primary">Connect Wallet</button>
+        <span id="walletStatus" style="margin-left: 10px;"></span>
+      </div>
+      <div>
+        <a href="https://chat.openai.com/" target="_blank" class="btn btn-success">Draft your terms using ChatGPT</a>
+      </div>
     </div>
-    
+
     <!-- Create Deal Section -->
     <div class="card p-4 mb-4">
       <h2>Create a Deal</h2>
       <form id="createDealForm">
-        <div class="form-group row">
-          <label for="clientWallet" class="col-sm-3 col-form-label">Client Wallet:</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="clientWallet" placeholder="Enter Client Wallet">
-          </div>
-        </div>
         <div class="form-group row">
           <label for="contractorWallet" class="col-sm-3 col-form-label">Contractor Wallet:</label>
           <div class="col-sm-9">
@@ -81,13 +85,13 @@
       <h2>Retrieve an Existing Deal</h2>
       <form id="retrieveDealForm">
         <div class="form-group">
-          <label for="dealId">Deal ID:</label>
-          <input type="text" class="form-control" id="dealId" placeholder="Enter Deal ID">
+          <label for="dealAddress">Deal Address:</label>
+          <input type="text" class="form-control" id="dealAddress" placeholder="Enter Deal Address">
         </div>
         <button type="button" id="retrieveDealButton" class="btn btn-primary">Retrieve Deal</button>
       </form>
     </div>
-    
+
     <!-- Deal Information Section (Initially hidden) -->
     <div class="card p-4 mb-4" id="dealDetailsSection" style="display: none;">
       <h2>Deal Information</h2>
@@ -142,4 +146,5 @@
   <!-- Custom JavaScript -->
   <script src="app.js"></script>
 </body>
+
 </html>
