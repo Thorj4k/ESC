@@ -465,6 +465,13 @@ async function connectWallet() {
     // Prompt user to connect their wallet
     await window.ethereum.enable();
     console.log('Wallet connected successfully');
+
+    // Update UI to show connected status (replace 'connectWalletButton' with your actual button ID)
+    const connectButton = document.getElementById('connectWalletButton');
+    if (connectButton) {
+      connectButton.textContent = 'Connected';
+      connectButton.disabled = true; // Optionally disable the button
+    }
   } catch (error) {
     console.error('Error connecting wallet:', error.message);
   }
