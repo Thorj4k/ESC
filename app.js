@@ -505,7 +505,6 @@ async function createDeal() {
       console.error('Invalid Ethereum address provided.');
       return;
     }
-  }
 }	
 	  
 async function addFunds(dealAddress, amount) {
