@@ -491,7 +491,7 @@ window.onload = async () => {
   } else {
     console.error('MetaMask or a compatible wallet is not detected');
   }
-}
+};
 
 // Function to create a deal
 async function createDeal() {
@@ -505,8 +505,18 @@ async function createDeal() {
       console.error('Invalid Ethereum address provided.');
       return;
     }
-}	
-	  
+
+    // Add your logic for creating a deal here
+
+  } catch (error) {
+    console.error('Error creating deal:', error.message);
+  }
+}
+
+// Event listener for Create Deal button
+document.getElementById('createDealButton').addEventListener('click', createDeal);
+
+// Function to add funds to a deal
 async function addFunds(dealAddress, amount) {
   try {
     const transaction = await escrowContract.addFunds(dealAddress, { value: ethers.utils.parseEther(amount.toString()) });
@@ -517,6 +527,7 @@ async function addFunds(dealAddress, amount) {
   }
 }
 
+// Function to sign a deal
 async function signDeal(dealAddress) {
   try {
     const transaction = await escrowContract.signDeal(dealAddress);
@@ -527,6 +538,7 @@ async function signDeal(dealAddress) {
   }
 }
 
+// Function to release funds from a deal
 async function releaseFunds(dealAddress) {
   try {
     const transaction = await escrowContract.releaseFunds(dealAddress);
@@ -537,6 +549,7 @@ async function releaseFunds(dealAddress) {
   }
 }
 
+// Function to cancel a deal
 async function cancelDeal(dealAddress) {
   try {
     const transaction = await escrowContract.cancelDeal(dealAddress);
@@ -547,6 +560,7 @@ async function cancelDeal(dealAddress) {
   }
 }
 
+// Function to request dispute for a deal
 async function requestDispute(dealAddress) {
   try {
     const transaction = await escrowContract.requestDispute(dealAddress);
@@ -557,6 +571,7 @@ async function requestDispute(dealAddress) {
   }
 }
 
+// Function to resolve dispute for a deal
 async function resolveDispute(dealAddress, resolved) {
   try {
     const transaction = await escrowContract.resolveDispute(dealAddress, resolved);
@@ -569,12 +584,12 @@ async function resolveDispute(dealAddress, resolved) {
 
 // Event listener for Create Deal button
 document.getElementById('createDealButton').addEventListener('click', createDeal);
-	
+
 // Replace 'YOUR_DEAL_ADDRESS' with the actual deal address
 const dealAddress = 'YOUR_DEAL_ADDRESS';
 
 // Examples of function calls
-createDeal('ContractorAddress'); // Replace 'ContractorAddress' with the actual contractor address
+createDeal(); // Replace 'ContractorAddress' with the actual contractor address
 depositFunds(dealAddress, 1); // Deposit 1 ether to the deal
 addFunds(dealAddress, 0.5); // Add 0.5 ether to the deal
 signDeal(dealAddress); // Sign the deal
