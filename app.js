@@ -472,7 +472,7 @@ async function connectWallet() {
 
     if (connectButton && walletStatus) {
       connectButton.textContent = 'Connected';
-      connectButton.disabled = true; // Optionally disable the button
+      connectButton.disabled = false; // Optionally disable the button
       walletStatus.textContent = 'Connected'; // Update status text
     }
   } catch (error) {
