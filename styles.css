@@ -63,7 +63,7 @@ h1 {
 
 .advertising-banner-top,
 .advertising-banner-bottom {
-  padding: 25px;
+  padding: 40px;
   font-size: 18px; /* Double the font size */
   background-color: #f8f9fa;
   color: #343a40;
@@ -100,5 +100,10 @@ marquee {
 @media (min-width: 768px) {
   body {
     padding: 50px;
+  }
+  .advertising-banner-top,
+  .advertising-banner-bottom {
+    padding: 25px;
+    font-size: 18px; /* Double the font size */
   }
 }
