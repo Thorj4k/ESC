@@ -480,6 +480,9 @@ async function connectWallet() {
   }
 }
 
+// Event listener for Connect Wallet button
+document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
+
 // Call the connectWallet function when the page loads
 window.onload = async () => {
   // Check if the user has MetaMask or a compatible wallet installed
